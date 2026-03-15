@@ -29,11 +29,29 @@ public class LoanService {
         return loanRepo.findByCustomer(user);
     }
 
+    public List<LoanApplication> getLoansByEmail(String email) {
+        User user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return loanRepo.findByCustomer(user);
+    }
+
     public String applyLoan(Long userId, ApplyLoanRequest request) {
 
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        return saveLoanApplication(user, request);
+    }
+
+    public String applyLoanByEmail(String email, ApplyLoanRequest request) {
+        User user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return saveLoanApplication(user, request);
+    }
+
+    private String saveLoanApplication(User user, ApplyLoanRequest request) {
         LoanApplication loan = new LoanApplication();
         loan.setLoanAmount(request.getLoanAmount());
         loan.setSalary(request.getSalary());

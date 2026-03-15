@@ -25,6 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/officer/**").hasRole("OFFICER")
+                        .requestMatchers("/api/customers/**").hasRole("CUSTOMER")
                         .requestMatchers("/api/loans/**").hasAnyRole("CUSTOMER", "OFFICER")
                         .anyRequest().authenticated()
                 )
