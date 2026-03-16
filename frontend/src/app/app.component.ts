@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { Component, HostListener, inject, signal } from '@angular/core';
-import { ViewportScroller } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import { SessionService } from './core/services/session.service';
 
 @Component({
@@ -22,7 +22,7 @@ import { SessionService } from './core/services/session.service';
           </div>
         </div>
 
-        <div class="topbar-center" *ngIf="session.isAuthenticated()">
+        <div class="topbar-center" *ngIf="session.isAuthenticated() && !authPage()">
           <nav class="nav-links nav-links-main">
             <a href="" (click)="goToSection($event, 'home')">Home</a>
             <a href="" (click)="goToSection($event, 'about')">About</a>
@@ -32,7 +32,7 @@ import { SessionService } from './core/services/session.service';
           </nav>
         </div>
 
-        <div class="topbar-right" *ngIf="session.isAuthenticated()">
+        <div class="topbar-right" *ngIf="session.isAuthenticated() && !authPage()">
           <div class="shell-meta">
             <a
               *ngIf="session.role() === 'CUSTOMER'"
@@ -41,43 +41,40 @@ import { SessionService } from './core/services/session.service';
               fragment="apply"
             >
               Apply Now
-              <span class="apply-now-arrow">↗</span>
+              <span class="apply-now-arrow">&#8594;</span>
             </a>
 
             <nav class="nav-links nav-links-profile">
               <div class="profile-menu" *ngIf="session.role() === 'CUSTOMER'">
-                <button class="profile-trigger" type="button" aria-label="Profile menu" title="Profile menu">
+                <button
+                  class="profile-trigger"
+                  type="button"
+                  aria-label="Open profile"
+                  title="Open profile"
+                  [routerLink]="'/customer/profile'"
+                >
                   <span class="profile-badge">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5Zm0 2c-3.34 0-10 1.68-10 5v1h20v-1c0-3.32-6.66-5-10-5Z"/>
                     </svg>
                   </span>
                 </button>
-
-                <div class="profile-dropdown">
-                  <a routerLink="/customer/profile" routerLinkActive="active">Profile</a>
-                  <a routerLink="/customer" routerLinkActive="active">About</a>
-                  <a routerLink="/customer" fragment="terms">Terms and Conditions</a>
-                  <a routerLink="/customer" fragment="help">Help Customer Care</a>
-                  <button type="button" (click)="logout()">Logout</button>
-                </div>
               </div>
 
               <div class="profile-menu" *ngIf="session.role() === 'OFFICER'">
-                <button class="profile-trigger" type="button" aria-label="Profile menu" title="Profile menu">
+                <button
+                  class="profile-trigger"
+                  type="button"
+                  aria-label="Logout"
+                  title="Logout"
+                  (click)="logout()"
+                >
                   <span class="profile-badge">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5Zm0 2c-3.34 0-10 1.68-10 5v1h20v-1c0-3.32-6.66-5-10-5Z"/>
                     </svg>
                   </span>
                 </button>
-
-                <div class="profile-dropdown">
-                  <a routerLink="/officer" routerLinkActive="active">About</a>
-                  <a routerLink="/officer" fragment="terms">Terms and Conditions</a>
-                  <a routerLink="/officer" fragment="help">Help Customer Care</a>
-                  <button type="button" (click)="logout()">Logout</button>
-                </div>
               </div>
             </nav>
           </div>
@@ -95,6 +92,13 @@ export class AppComponent {
   private readonly router = inject(Router);
   private readonly viewportScroller = inject(ViewportScroller);
   protected readonly scrolled = signal(false);
+  protected readonly authPage = signal(this.isAuthUrl(this.router.url));
+
+  constructor() {
+    this.router.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event) => this.authPage.set(this.isAuthUrl(event.urlAfterRedirects)));
+  }
 
   protected homeRoute(): string {
     return this.session.role() === 'OFFICER' ? '/officer' : '/customer';
@@ -116,5 +120,9 @@ export class AppComponent {
   @HostListener('window:scroll')
   protected onWindowScroll(): void {
     this.scrolled.set(window.scrollY > 12);
+  }
+
+  private isAuthUrl(url: string): boolean {
+    return url.startsWith('/login') || url.startsWith('/register');
   }
 }

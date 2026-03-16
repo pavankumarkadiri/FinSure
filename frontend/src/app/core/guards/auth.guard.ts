@@ -15,6 +15,19 @@ export const authGuard: CanActivateFn = () => {
   return false;
 };
 
+export const guestGuard: CanActivateFn = () => {
+  const session = inject(SessionService);
+  const router = inject(Router);
+
+  if (!session.isAuthenticated()) {
+    return true;
+  }
+
+  const target = session.role() === 'OFFICER' ? '/officer' : '/customer';
+  void router.navigate([target]);
+  return false;
+};
+
 export function roleGuard(roles: UserRole[]): CanActivateFn {
   return () => {
     const session = inject(SessionService);

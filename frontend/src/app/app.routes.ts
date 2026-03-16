@@ -4,12 +4,12 @@ import { RegisterComponent } from './features/auth/register.component';
 import { CustomerDashboardComponent } from './features/customer/customer-dashboard.component';
 import { CustomerProfileComponent } from './features/customer/customer-profile.component';
 import { OfficerDashboardComponent } from './features/officer/officer-dashboard.component';
-import { authGuard, roleGuard } from './core/guards/auth.guard';
+import { authGuard, guestGuard, roleGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
+  { path: 'register', component: RegisterComponent, canActivate: [guestGuard] },
   {
     path: 'customer',
     component: CustomerDashboardComponent,
