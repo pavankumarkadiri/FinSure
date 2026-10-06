@@ -1421,8 +1421,8 @@ button {
 .auth-lead {
   display: grid;
   align-content: space-between;
-  gap: 28px;
-  padding: clamp(28px, 5vw, 56px);
+  gap: 20px;
+  padding: 28px;
   background:
     linear-gradient(150deg, rgba(13, 35, 70, 0.98), rgba(29, 99, 255, 0.9)),
     radial-gradient(circle at top right, rgba(255, 207, 36, 0.22), transparent 32%);
@@ -1502,20 +1502,20 @@ button {
   display: grid;
   align-content: center;
   gap: 20px;
-  padding: clamp(24px, 4vw, 56px);
-  background: rgba(255, 255, 255, 0.72);
+  padding: 0;
+  background: #fff;
 }
 
 .auth-panel-card {
   display: grid;
-  gap: 20px;
-  width: min(100%, 520px);
+  gap: 18px;
+  width: min(100%, 560px);
   margin: 0 auto;
-  padding: clamp(22px, 4vw, 34px);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.96);
-  border: 1px solid rgba(19, 35, 63, 0.08);
-  box-shadow: 0 24px 60px rgba(16, 51, 108, 0.12);
+  padding: 28px;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .auth-panel-head {
@@ -2004,12 +2004,13 @@ th {
 
   .auth-lead,
   .auth-panel {
-    padding: 24px 18px;
+    padding: 0;
   }
 
   .auth-lead {
     min-height: auto;
-    gap: 22px;
+    gap: 18px;
+    padding: 22px 18px;
   }
 
   .auth-lead .display-title {
@@ -2024,7 +2025,7 @@ th {
 
   .auth-panel-card {
     padding: 22px 18px;
-    border-radius: 18px;
+    border-radius: 0;
   }
 
   .auth-utility {
