@@ -14,69 +14,95 @@ import { SessionService } from '../../core/services/session.service';
     <section class="auth-page fade-sequence">
       <article class="auth-lead">
         <div class="auth-lead-copy">
-          <p class="eyebrow">Secure Access</p>
-          <h2 class="display-title">Welcome to your FinSure loan workspace.</h2>
+          <p class="eyebrow">Welcome Back</p>
+          <h2 class="display-title">Manage loans with less effort.</h2>
           <p class="lede">
-            Sign in to apply for loans, track your requests, or review pending applications from
-            one clear dashboard.
+            Sign in once and continue with applications, approvals, and profile updates from a
+            focused FinSure dashboard.
           </p>
+        </div>
+
+        <div class="auth-proof-row" aria-label="FinSure highlights">
+          <span>Fast loan requests</span>
+          <span>Clear status tracking</span>
+          <span>Officer review tools</span>
         </div>
 
         <div class="auth-lead-grid">
           <div class="auth-feature">
-            <p class="auth-feature-title">Protected access</p>
-            <p class="auth-feature-copy">Your account opens the right dashboard automatically.</p>
+            <p class="auth-feature-title">One login</p>
+            <p class="auth-feature-copy">Customers and officers land in the right workspace.</p>
           </div>
           <div class="auth-feature">
-            <p class="auth-feature-title">Customer dashboard</p>
-            <p class="auth-feature-copy">Apply, track, and manage loan activity.</p>
+            <p class="auth-feature-title">Loan progress</p>
+            <p class="auth-feature-copy">Follow each request from applied to final decision.</p>
           </div>
           <div class="auth-feature">
-            <p class="auth-feature-title">Officer review</p>
-            <p class="auth-feature-copy">Approve and reject with live queue access.</p>
+            <p class="auth-feature-title">Simple review</p>
+            <p class="auth-feature-copy">Review queues stay readable and action focused.</p>
           </div>
         </div>
       </article>
 
       <article class="auth-panel">
-        <div class="auth-panel-head">
-          <p class="eyebrow">Login</p>
-          <h2 class="section-title">Sign in to FinSure</h2>
-          <p class="auth-card-copy">
-            Enter your email and password. FinSure will take you to the right dashboard for your
-            account.
+        <div class="auth-panel-card">
+          <div class="auth-panel-head">
+            <p class="eyebrow">Sign In</p>
+            <h2 class="section-title">Access your account</h2>
+            <p class="auth-card-copy">
+              Use your registered email and password. FinSure will open the correct dashboard for
+              your account.
+            </p>
+          </div>
+
+          <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                placeholder="name@example.com"
+                autocomplete="email"
+              >
+              <p class="field-hint" *ngIf="form.controls.email.touched && form.controls.email.invalid">
+                Enter a valid email address.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                formControlName="password"
+                placeholder="Enter password"
+                autocomplete="current-password"
+              >
+              <p class="field-hint" *ngIf="form.controls.password.touched && form.controls.password.invalid">
+                Password is required.
+              </p>
+            </div>
+
+            <div class="auth-utility">
+              <span>Need help? Contact your branch or support team.</span>
+              <span>Secure access</span>
+            </div>
+
+            <div class="message error" *ngIf="error()">{{ error() }}</div>
+
+            <div class="button-row auth-actions">
+              <button class="btn btn-primary" type="submit" [disabled]="loading()">
+                {{ loading() ? 'Signing in...' : 'Sign in' }}
+              </button>
+              <a class="btn btn-secondary" routerLink="/register">Create account</a>
+            </div>
+          </form>
+
+          <p class="auth-footnote">
+            Officer access is available only for approved staff accounts.
           </p>
         </div>
-
-        <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" type="email" formControlName="email" placeholder="name@example.com">
-          </div>
-
-          <div class="field">
-            <label for="password">Password</label>
-            <input id="password" type="password" formControlName="password" placeholder="Enter password">
-          </div>
-
-          <div class="auth-utility">
-            <span>Forgot your details? Contact your branch or support team.</span>
-            <span>Account access</span>
-          </div>
-
-          <div class="message error" *ngIf="error()">{{ error() }}</div>
-
-          <div class="button-row auth-actions">
-            <button class="btn btn-primary" type="submit" [disabled]="loading()">
-              {{ loading() ? 'Signing in...' : 'Sign in' }}
-            </button>
-            <a class="btn btn-secondary" routerLink="/register">Create account</a>
-          </div>
-        </form>
-
-        <p class="auth-footnote">
-          Officer access is available only for approved staff accounts.
-        </p>
       </article>
     </section>
   `

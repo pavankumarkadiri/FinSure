@@ -13,22 +13,28 @@ import { AuthService } from '../../core/services/auth.service';
     <section class="auth-page fade-sequence">
       <article class="auth-lead auth-lead-register">
         <div class="auth-lead-copy">
-          <p class="eyebrow">Customer Onboarding</p>
-          <h2 class="display-title">Create a customer account with a better first impression.</h2>
+          <p class="eyebrow">Create Account</p>
+          <h2 class="display-title">Start your loan journey with FinSure.</h2>
           <p class="lede">
-            Create your customer account in a few steps and continue to loan applications from a
-            clear dashboard.
+            Set up your customer account, sign in, and begin managing loan requests from a clear
+            dashboard.
           </p>
+        </div>
+
+        <div class="auth-proof-row" aria-label="Signup highlights">
+          <span>Simple details</span>
+          <span>Quick access</span>
+          <span>Loan-ready account</span>
         </div>
 
         <div class="auth-lead-grid">
           <div class="auth-feature">
-            <p class="auth-feature-title">Quick signup</p>
-            <p class="auth-feature-copy">Name, email, and password are enough to get started.</p>
+            <p class="auth-feature-title">Quick setup</p>
+            <p class="auth-feature-copy">Create your account with only the essentials.</p>
           </div>
           <div class="auth-feature">
-            <p class="auth-feature-title">Created role</p>
-            <p class="auth-feature-copy">New signups become CUSTOMER users.</p>
+            <p class="auth-feature-title">Customer access</p>
+            <p class="auth-feature-copy">New accounts are ready for customer loan tools.</p>
           </div>
           <div class="auth-feature">
             <p class="auth-feature-title">Next step</p>
@@ -38,45 +44,74 @@ import { AuthService } from '../../core/services/auth.service';
       </article>
 
       <article class="auth-panel">
-        <div class="auth-panel-head">
-          <p class="eyebrow">Register</p>
-          <h2 class="section-title">Create a new customer account</h2>
-          <p class="auth-card-copy">
-            Keep it simple: name, email, and password. After registration, sign in to start your
-            loan journey.
+        <div class="auth-panel-card">
+          <div class="auth-panel-head">
+            <p class="eyebrow">Sign Up</p>
+            <h2 class="section-title">Create your account</h2>
+            <p class="auth-card-copy">
+              Add your basic details now. After registration, sign in to submit and track loan
+              requests.
+            </p>
+          </div>
+
+          <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <div class="field">
+              <label for="name">Full name</label>
+              <input
+                id="name"
+                type="text"
+                formControlName="name"
+                placeholder="Enter full name"
+                autocomplete="name"
+              >
+              <p class="field-hint" *ngIf="form.controls.name.touched && form.controls.name.invalid">
+                Enter at least 2 characters.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="email">Email address</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                placeholder="name@example.com"
+                autocomplete="email"
+              >
+              <p class="field-hint" *ngIf="form.controls.email.touched && form.controls.email.invalid">
+                Enter a valid email address.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                formControlName="password"
+                placeholder="Choose a password"
+                autocomplete="new-password"
+              >
+              <p class="field-hint" *ngIf="form.controls.password.touched && form.controls.password.invalid">
+                Use at least 4 characters.
+              </p>
+            </div>
+
+            <div class="message error" *ngIf="error()">{{ error() }}</div>
+            <div class="message success" *ngIf="success()">{{ success() }}</div>
+
+            <div class="button-row auth-actions">
+              <button class="btn btn-primary" type="submit" [disabled]="loading()">
+                {{ loading() ? 'Creating account...' : 'Create account' }}
+              </button>
+              <a class="btn btn-secondary" routerLink="/login">Back to login</a>
+            </div>
+          </form>
+
+          <p class="auth-footnote">
+            New signups are created as customer accounts.
           </p>
         </div>
-
-        <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
-          <div class="field">
-            <label for="name">Full name</label>
-            <input id="name" type="text" formControlName="name" placeholder="Enter full name">
-          </div>
-
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" type="email" formControlName="email" placeholder="name@example.com">
-          </div>
-
-          <div class="field">
-            <label for="password">Password</label>
-            <input id="password" type="password" formControlName="password" placeholder="Choose a password">
-          </div>
-
-          <div class="message error" *ngIf="error()">{{ error() }}</div>
-          <div class="message success" *ngIf="success()">{{ success() }}</div>
-
-          <div class="button-row auth-actions">
-            <button class="btn btn-primary" type="submit" [disabled]="loading()">
-              {{ loading() ? 'Creating account...' : 'Register' }}
-            </button>
-            <a class="btn btn-secondary" routerLink="/login">Back to login</a>
-          </div>
-        </form>
-
-        <p class="auth-footnote">
-          New signups are created as customer accounts.
-        </p>
       </article>
     </section>
   `
