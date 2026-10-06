@@ -45,35 +45,24 @@ import { SessionService } from './core/services/session.service';
             </a>
 
             <nav class="nav-links nav-links-profile">
-              <div class="profile-menu" *ngIf="session.role() === 'CUSTOMER'">
+              <div class="profile-menu">
                 <button
-                  class="profile-trigger"
+                  *ngIf="session.role() === 'CUSTOMER'"
+                  class="profile-action"
                   type="button"
-                  aria-label="Open profile"
-                  title="Open profile"
+                  title="Profile"
                   [routerLink]="'/customer/profile'"
                 >
-                  <span class="profile-badge">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5Zm0 2c-3.34 0-10 1.68-10 5v1h20v-1c0-3.32-6.66-5-10-5Z"/>
-                    </svg>
-                  </span>
+                  Profile
                 </button>
-              </div>
 
-              <div class="profile-menu" *ngIf="session.role() === 'OFFICER'">
                 <button
-                  class="profile-trigger"
+                  class="logout-action"
                   type="button"
-                  aria-label="Logout"
                   title="Logout"
                   (click)="logout()"
                 >
-                  <span class="profile-badge">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5Zm0 2c-3.34 0-10 1.68-10 5v1h20v-1c0-3.32-6.66-5-10-5Z"/>
-                    </svg>
-                  </span>
+                  Logout
                 </button>
               </div>
             </nav>

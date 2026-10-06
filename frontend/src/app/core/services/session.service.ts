@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { SessionState, UserRole } from '../models/auth.models';
-import { decodeJwtSubject } from '../utils/jwt';
+import { decodeJwtRole, decodeJwtSubject, isJwtExpired } from '../utils/jwt';
 
 const STORAGE_KEY = 'finsure.session';
 
@@ -30,10 +30,11 @@ export class SessionService {
     return this.state()?.email ?? null;
   }
 
-  setSession(token: string, role: UserRole, userId: number | null): void {
+  setSession(token: string, userId: number | null = null): void {
     const email = decodeJwtSubject(token);
+    const role = decodeJwtRole(token);
 
-    if (!email) {
+    if (!email || !role || isJwtExpired(token)) {
       throw new Error('Received an invalid JWT from the backend.');
     }
 
@@ -54,7 +55,17 @@ export class SessionService {
     }
 
     try {
-      return JSON.parse(raw) as SessionState;
+      const session = JSON.parse(raw) as SessionState;
+
+      const email = decodeJwtSubject(session.token);
+      const role = decodeJwtRole(session.token);
+
+      if (!session.token || !email || !role || isJwtExpired(session.token)) {
+        localStorage.removeItem(STORAGE_KEY);
+        return null;
+      }
+
+      return { ...session, email, role };
     } catch {
       localStorage.removeItem(STORAGE_KEY);
       return null;

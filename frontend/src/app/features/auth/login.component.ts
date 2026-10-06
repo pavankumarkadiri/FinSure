@@ -3,7 +3,6 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
-import { UserRole } from '../../core/models/auth.models';
 import { AuthService } from '../../core/services/auth.service';
 import { SessionService } from '../../core/services/session.service';
 
@@ -60,17 +59,9 @@ import { SessionService } from '../../core/services/session.service';
             <input id="password" type="password" formControlName="password" placeholder="Enter password">
           </div>
 
-          <div class="field">
-            <label for="role">Frontend role selection</label>
-            <select id="role" formControlName="role">
-              <option value="CUSTOMER">Customer</option>
-              <option value="OFFICER">Officer</option>
-            </select>
-          </div>
-
           <div class="auth-utility">
-            <span>Role-aware routing is enabled after login.</span>
-            <span>{{ form.controls.role.value }}</span>
+            <span>Role-aware routing is handled by your backend JWT.</span>
+            <span>Secure session</span>
           </div>
 
           <div class="message error" *ngIf="error()">{{ error() }}</div>
@@ -102,15 +93,13 @@ export class LoginComponent {
 
   protected readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-    role: ['CUSTOMER' as UserRole, [Validators.required]]
+    password: ['', [Validators.required]]
   });
 
   protected submit(): void {
     this.error.set('');
     this.success.set('');
 
-    const selectedRole = this.form.controls.role.value;
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.error.set('Enter a valid email and password before continuing.');
@@ -127,9 +116,9 @@ export class LoginComponent {
       .subscribe({
         next: (token) => {
           try {
-            this.session.setSession(token, selectedRole, null);
+            this.session.setSession(token);
             this.success.set('Login successful.');
-            void this.router.navigate([selectedRole === 'OFFICER' ? '/officer' : '/customer']);
+            void this.router.navigate([this.session.role() === 'OFFICER' ? '/officer' : '/customer']);
           } catch (error) {
             this.error.set(error instanceof Error ? error.message : 'Unable to initialize session.');
           }

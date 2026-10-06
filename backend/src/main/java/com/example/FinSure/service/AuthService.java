@@ -48,6 +48,6 @@ public class AuthService {
         }
 
         // Generate JWT token
-        return jwtUtil.generateToken(user.getEmail());
+        return jwtUtil.generateToken(user.getEmail(), user.getRole());
     }
 }

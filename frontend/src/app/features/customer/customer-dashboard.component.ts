@@ -28,7 +28,7 @@ import { SessionService } from '../../core/services/session.service';
           <div class="photo-track">
             <div class="photo-group">
               <article class="photo-card" *ngFor="let photo of photoCards">
-                <img [src]="photo.src" [alt]="photo.alt">
+                <img [src]="photo.src" [alt]="photo.alt" loading="lazy" decoding="async">
                 <div class="photo-caption">
                   <p class="photo-title">{{ photo.title }}</p>
                   <p class="photo-copy">{{ photo.copy }}</p>
@@ -38,7 +38,7 @@ import { SessionService } from '../../core/services/session.service';
 
             <div class="photo-group" aria-hidden="true">
               <article class="photo-card" *ngFor="let photo of photoCards">
-                <img [src]="photo.src" [alt]="photo.alt">
+                <img [src]="photo.src" [alt]="photo.alt" loading="lazy" decoding="async">
                 <div class="photo-caption">
                   <p class="photo-title">{{ photo.title }}</p>
                   <p class="photo-copy">{{ photo.copy }}</p>
@@ -257,7 +257,7 @@ import { SessionService } from '../../core/services/session.service';
         <div class="loan-catalog-grid">
           <article class="loan-type-card" *ngFor="let loanType of loanTypes" [ngClass]="'loan-theme-' + loanType.theme">
             <div class="loan-type-media">
-              <img class="loan-type-image" [src]="loanType.image" [alt]="loanType.title">
+              <img class="loan-type-image" [src]="loanType.image" [alt]="loanType.title" loading="lazy" decoding="async">
               <div class="loan-type-overlay"></div>
             </div>
             <div class="loan-type-body">
