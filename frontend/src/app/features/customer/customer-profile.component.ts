@@ -20,8 +20,8 @@ import { SessionService } from '../../core/services/session.service';
               <p class="eyebrow">Customer Profile</p>
               <h2 class="section-title">Manage your personal profile and saved loan details.</h2>
               <p class="lede">
-                This page lets the customer maintain editable profile details in the backend and
-                review saved loan records from the current account.
+                This page lets you update your profile details and review saved loan records from
+                your account.
               </p>
               <div class="hero-actions">
                 <button class="btn btn-primary" type="button" (click)="saveProfile()" [disabled]="saving()">
@@ -51,20 +51,20 @@ import { SessionService } from '../../core/services/session.service';
         </article>
 
         <aside class="panel apply-space">
-          <p class="eyebrow">Backend Profile Sync</p>
-          <h3 class="section-title">Profile details are now stored on the server</h3>
+          <p class="eyebrow">Profile Details</p>
+          <h3 class="section-title">Keep your information up to date</h3>
           <p class="muted">
-            Your profile details now save against the authenticated customer record in the backend,
-            so they remain available after refresh and across sessions.
+            Your profile details stay available after refresh, so you can return anytime and
+            continue where you left off.
           </p>
           <div class="detail-list">
             <div class="detail-item">
               <span>Editable details</span>
-              <span class="detail-value">Backend synced</span>
+              <span class="detail-value">Saved</span>
             </div>
             <div class="detail-item">
               <span>Loan records</span>
-              <span class="detail-value">Backend synced</span>
+              <span class="detail-value">Saved</span>
             </div>
           </div>
         </aside>
@@ -198,7 +198,7 @@ export class CustomerProfileComponent {
       .subscribe({
         next: (savedProfile) => {
           this.form.patchValue(savedProfile);
-          this.success.set('Profile saved to backend.');
+          this.success.set('Profile saved successfully.');
         },
         error: (error) => {
           this.profileError.set(error?.error?.message || error?.error || 'Failed to save profile.');

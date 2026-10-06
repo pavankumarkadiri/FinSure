@@ -18,9 +18,8 @@ import { SessionService } from '../../core/services/session.service';
               <p class="eyebrow">Officer Command</p>
               <h2 class="section-title">Review the queue in a sharper, faster command surface.</h2>
               <p class="lede">
-                Signed in as {{ session.email() }}. Every approval action still relies on the backend
-                EMI rule before a status is persisted, but the UI now keeps the queue readable and
-                visually current.
+                Review pending loan requests with clear repayment signals, customer details, and
+                quick decision actions in one readable queue.
               </p>
 
               <div class="hero-actions">
@@ -78,8 +77,8 @@ import { SessionService } from '../../core/services/session.service';
                 <p class="eyebrow">EMI Review</p>
                 <h3 class="slide-title">See pressure points before you approve.</h3>
                 <p class="slide-text">
-                  The interface previews estimated EMI to support the same backend rule that rejects
-                  applications when repayment load goes too high.
+                  The interface previews estimated EMI so officers can quickly understand repayment
+                  pressure before making a decision.
                 </p>
                 <div class="slide-meta">
                   <span class="slide-badge">Avg EMI {{ averageEmi() | currency:'INR':'symbol':'1.0-0' }}</span>
@@ -180,7 +179,7 @@ import { SessionService } from '../../core/services/session.service';
               <span class="check-icon">01</span>
               <div>
                 <p class="process-title">Read salary against EMI</p>
-                <p class="process-copy">The backend still enforces the 40% ceiling, so this remains the first signal.</p>
+                <p class="process-copy">Use the 40% salary comfort zone as the first repayment signal.</p>
               </div>
             </div>
             <div class="checklist-item">
@@ -280,7 +279,7 @@ import { SessionService } from '../../core/services/session.service';
             <div class="detail-list">
               <div class="detail-item">
                 <span>40% salary ceiling</span>
-                <span class="detail-value">Backend enforced</span>
+                <span class="detail-value">Checked during review</span>
               </div>
               <div class="detail-item">
                 <span>Interest basis</span>

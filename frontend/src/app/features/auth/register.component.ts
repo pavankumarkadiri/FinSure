@@ -16,15 +16,15 @@ import { AuthService } from '../../core/services/auth.service';
           <p class="eyebrow">Customer Onboarding</p>
           <h2 class="display-title">Create a customer account with a better first impression.</h2>
           <p class="lede">
-            This registration screen maps directly to your backend and keeps the flow simple,
-            modern, and easy to understand.
+            Create your customer account in a few steps and continue to loan applications from a
+            clear dashboard.
           </p>
         </div>
 
         <div class="auth-lead-grid">
           <div class="auth-feature">
-            <p class="auth-feature-title">Register endpoint</p>
-            <p class="auth-feature-copy">Directly aligned to the backend register endpoint.</p>
+            <p class="auth-feature-title">Quick signup</p>
+            <p class="auth-feature-copy">Name, email, and password are enough to get started.</p>
           </div>
           <div class="auth-feature">
             <p class="auth-feature-title">Created role</p>
@@ -42,8 +42,8 @@ import { AuthService } from '../../core/services/auth.service';
           <p class="eyebrow">Register</p>
           <h2 class="section-title">Create a new customer account</h2>
           <p class="auth-card-copy">
-            Keep it simple: name, email, password. This screen stays aligned to the backend
-            contract you already have.
+            Keep it simple: name, email, and password. After registration, sign in to start your
+            loan journey.
           </p>
         </div>
 
@@ -75,7 +75,7 @@ import { AuthService } from '../../core/services/auth.service';
         </form>
 
         <p class="auth-footnote">
-          The backend currently creates new signups only as customer accounts.
+          New signups are created as customer accounts.
         </p>
       </article>
     </section>

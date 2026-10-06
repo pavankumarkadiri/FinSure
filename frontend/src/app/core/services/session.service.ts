@@ -35,7 +35,7 @@ export class SessionService {
     const role = decodeJwtRole(token);
 
     if (!email || !role || isJwtExpired(token)) {
-      throw new Error('Received an invalid JWT from the backend.');
+      throw new Error('We could not sign you in. Please check your email and password.');
     }
 
     const session: SessionState = { token, role, userId, email };

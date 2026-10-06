@@ -57,8 +57,7 @@ import { SessionService } from '../../core/services/session.service';
               <h2 class="section-title">Borrowing made calm, clear, and beautifully trackable.</h2>
               <p class="lede">
                 Track active applications, submit a new request, and keep every loan decision in one
-                place. Signed in as {{ session.email() }} with a dashboard designed like a modern
-                product surface instead of a plain form screen.
+                place. Your dashboard keeps applications, approvals, and next steps easy to follow.
               </p>
 
               <div class="hero-actions">
@@ -135,15 +134,15 @@ import { SessionService } from '../../core/services/session.service';
                 <div class="slide-panel three"></div>
               </div>
               <div class="slide-copy">
-                <p class="eyebrow">Backend Aligned</p>
-                <h3 class="slide-title">Built around your current API contract.</h3>
+                <p class="eyebrow">Account Ready</p>
+                <h3 class="slide-title">Your loan activity stays connected.</h3>
                 <p class="slide-text">
-                  Customer endpoints still depend on your numeric user ID, so the dashboard preserves
-                  that session detail while keeping the interface polished.
+                  Your requests and decisions stay linked to your account, so you can return later
+                  and continue from the same place.
                 </p>
                 <div class="slide-meta">
                   <span class="slide-badge">{{ session.email() }}</span>
-                  <span class="slide-badge">API synced</span>
+                  <span class="slide-badge">Account synced</span>
                 </div>
               </div>
             </article>
@@ -235,7 +234,7 @@ import { SessionService } from '../../core/services/session.service';
               <span class="check-icon">03</span>
               <div>
                 <p class="process-title">Choose the right employment type</p>
-                <p class="process-copy">This keeps your request aligned with the backend review data the officer sees.</p>
+                <p class="process-copy">This helps the officer understand your income type clearly during review.</p>
               </div>
             </div>
           </div>
@@ -447,7 +446,7 @@ import { SessionService } from '../../core/services/session.service';
                 <span class="process-dot"></span>
                 <div>
                   <p class="process-title">Application recorded</p>
-                  <p class="process-copy">Your request is created in the backend with APPLIED status.</p>
+                  <p class="process-copy">Your request is saved and marked as waiting for review.</p>
                 </div>
               </div>
               <div class="process-step">

@@ -15,17 +15,17 @@ import { SessionService } from '../../core/services/session.service';
       <article class="auth-lead">
         <div class="auth-lead-copy">
           <p class="eyebrow">Secure Access</p>
-          <h2 class="display-title">A cleaner way into your lending workspace.</h2>
+          <h2 class="display-title">Welcome to your FinSure loan workspace.</h2>
           <p class="lede">
-            Sign in to review applications, submit loans, and move through the backend flow with a
-            more modern, focused UI.
+            Sign in to apply for loans, track your requests, or review pending applications from
+            one clear dashboard.
           </p>
         </div>
 
         <div class="auth-lead-grid">
           <div class="auth-feature">
-            <p class="auth-feature-title">JWT secured</p>
-            <p class="auth-feature-copy">Authenticated customer and officer flows.</p>
+            <p class="auth-feature-title">Protected access</p>
+            <p class="auth-feature-copy">Your account opens the right dashboard automatically.</p>
           </div>
           <div class="auth-feature">
             <p class="auth-feature-title">Customer dashboard</p>
@@ -41,10 +41,10 @@ import { SessionService } from '../../core/services/session.service';
       <article class="auth-panel">
         <div class="auth-panel-head">
           <p class="eyebrow">Login</p>
-          <h2 class="section-title">Authenticate with FinSure</h2>
+          <h2 class="section-title">Sign in to FinSure</h2>
           <p class="auth-card-copy">
-            Sign in with your backend credentials. Customer loan actions now resolve from the
-            logged-in JWT session.
+            Enter your email and password. FinSure will take you to the right dashboard for your
+            account.
           </p>
         </div>
 
@@ -60,8 +60,8 @@ import { SessionService } from '../../core/services/session.service';
           </div>
 
           <div class="auth-utility">
-            <span>Role-aware routing is handled by your backend JWT.</span>
-            <span>Secure session</span>
+            <span>Forgot your details? Contact your branch or support team.</span>
+            <span>Account access</span>
           </div>
 
           <div class="message error" *ngIf="error()">{{ error() }}</div>
@@ -75,7 +75,7 @@ import { SessionService } from '../../core/services/session.service';
         </form>
 
         <p class="auth-footnote">
-          Officer accounts must already exist in the backend with the OFFICER role.
+          Officer access is available only for approved staff accounts.
         </p>
       </article>
     </section>
@@ -120,11 +120,11 @@ export class LoginComponent {
             this.success.set('Login successful.');
             void this.router.navigate([this.session.role() === 'OFFICER' ? '/officer' : '/customer']);
           } catch (error) {
-            this.error.set(error instanceof Error ? error.message : 'Unable to initialize session.');
+            this.error.set(error instanceof Error ? error.message : 'We could not sign you in. Please try again.');
           }
         },
         error: (error) => {
-          this.error.set(error?.error || 'Login failed. Check backend credentials and role access.');
+          this.error.set(error?.error || 'We could not sign you in. Please check your email and password.');
         }
       });
   }
